@@ -1,37 +1,30 @@
-import React, {useEffect,useState,useContext} from 'react'
-import scoreIcon from '../../assets/images/scoreboard.png'
-import axios from 'axios'
+import React, { useEffect, useState, useContext } from "react";
+import scoreIcon from "../../assets/images/scoreboard.png";
+import axios from "axios";
 import { gameContext } from "../../context/context";
-require ('./navbar.css')
+require("./navbar.css");
 
-const requstGameDatafromDB = async() => {
+const requstGameDatafromDB = async () => {
+  const response = await axios.get(
+    "https://memoramabackend.herokuapp.com/api/twoplayers"
+  );
+  return response.data;
+};
 
+export default function Navbar() {
+  const { gameWon } = useContext(gameContext);
 
-    const response = await axios.get(
-      "https://memoramabackend.herokuapp.com/api/twoplayers"
-    );
-    return response.data
- 
-  
-}
-
-
-
-
-export default function Navbar() { 
-  const {gameWon} = useContext(gameContext)
- 
   const [data, setData] = useState([]);
 
   useEffect(() => {
     async function request() {
       let reqData = await requstGameDatafromDB();
-  
+
       setData(reqData);
     }
     request();
   }, [gameWon]);
-  
+
   return (
     <div className="navbar--container">
       <h3>MEMORAMA</h3>
@@ -45,7 +38,7 @@ export default function Navbar() {
         >
           Ver el Historial
         </button>
-   
+
         <div
           className="modal fade"
           id="exampleModal"
@@ -67,27 +60,28 @@ export default function Navbar() {
                 ></button>
               </div>
               <div className="modal-body">
-              
                 <table className="table">
-      <thead>
-        <tr>
-          <th scope="col">Ganador</th>
-          <th scope="col">P1</th>
-          <th scope="col">P2</th>
-          <th scope="col">Dificultad</th>
-        </tr>
-      </thead>
-      <tbody>
-      { data.map((item, index) => {
-           return <tr key={index}>
-              <th scope="row">{item.winner}</th>
-              <td>{item.P1}</td>
-              <td>{item.P2}</td>
-              <td>{item.dificultad}</td>
-            </tr>;
-          })}
-      </tbody>
-    </table>
+                  <thead>
+                    <tr>
+                      <th scope="col">Ganador</th>
+                      <th scope="col">P1</th>
+                      <th scope="col">P2</th>
+                      <th scope="col">Dificultad</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {data.map((item, index) => {
+                      return (
+                        <tr key={index}>
+                          <th scope="row">{item.winner}</th>
+                          <td>{item.P1}</td>
+                          <td>{item.P2}</td>
+                          <td>{item.dificultad}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
               </div>
               <div className="modal-footer">
                 <button
@@ -97,7 +91,6 @@ export default function Navbar() {
                 >
                   Close
                 </button>
-               
               </div>
             </div>
           </div>

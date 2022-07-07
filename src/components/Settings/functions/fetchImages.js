@@ -3,7 +3,7 @@
 //563492ad6f9170000100000103da485e3e614ecd9a308f4ae77ba519
 export default async function fetchData(amount,query) {
      let apikey = "563492ad6f917000010000010d1e410d19224232b077571032f46ed1";
-     
+     //Actualizar el query con el nuevo valor
        
   let data = await fetch(
     `https://api.pexels.com/v1/search?query=${query}&page=${1}&per_page=${amount}&}`,
