@@ -560,6 +560,7 @@ const Board = ({ animating, handleMemoClick, memoBlocks }) => {
               <button
                 onClickCapture={(e) => {
                   currentDificult.current = e.target.value;
+                  restartGame();
                   setDificult(e.target.value);
                 }}
                 value="facil"
@@ -572,6 +573,7 @@ const Board = ({ animating, handleMemoClick, memoBlocks }) => {
               <button
                 onClickCapture={(e) => {
                   currentDificult.current = e.target.value;
+                  restartGame();
                   setDificult(e.target.value);
                 }}
                 value="normal"
@@ -584,6 +586,7 @@ const Board = ({ animating, handleMemoClick, memoBlocks }) => {
               <button
                 onClickCapture={(e) => {
                   currentDificult.current = e.target.value;
+                  restartGame();
                   setDificult(e.target.value);
                 }}
                 value="dificil"
@@ -603,6 +606,7 @@ const Board = ({ animating, handleMemoClick, memoBlocks }) => {
                 onClickCapture={(e) => {
                   console.log(e.target.value);
                   currentImageSelected.current = e.target.value;
+                  restartGame();
                   SaveImages(currentDificult.current);
                 }}
                 value="cats"
@@ -616,6 +620,7 @@ const Board = ({ animating, handleMemoClick, memoBlocks }) => {
                 onClickCapture={(e) => {
                   console.log(e.target.value);
                   currentImageSelected.current = e.target.value;
+                  restartGame();
                   SaveImages(currentDificult.current);
                 }}
                 value="dogs"
@@ -629,6 +634,7 @@ const Board = ({ animating, handleMemoClick, memoBlocks }) => {
                 onClickCapture={(e) => {
                   console.log(e.target.value);
                   currentImageSelected.current = e.target.value;
+                  restartGame();
                   SaveImages(currentDificult.current);
                 }}
                 value="birds"
@@ -642,6 +648,7 @@ const Board = ({ animating, handleMemoClick, memoBlocks }) => {
                 onClickCapture={(e) => {
                   console.log(e.target.value);
                   currentImageSelected.current = e.target.value;
+                  restartGame();
                   SaveImages(currentDificult.current);
                 }}
                 value="furnitures"
