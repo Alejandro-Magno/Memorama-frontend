@@ -7,7 +7,9 @@ require ('./navbar.css')
 const requstGameDatafromDB = async() => {
 
 
-    const response = await axios.get("http://localhost:9000/api/twoplayers")
+    const response = await axios.get(
+      "https://memoramabackend.herokuapp.com/api/twoplayers"
+    );
     return response.data
  
   

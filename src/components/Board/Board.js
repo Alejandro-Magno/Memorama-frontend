@@ -269,9 +269,9 @@ const Board = ({ animating, handleMemoClick, memoBlocks }) => {
   const saveinDatabase = async (res) => {
     let dataurl
     if (gameMode === "1Player") {
-      dataurl = "http://localhost:9000/api/SingleMode";
+      dataurl = "https://memoramabackend.herokuapp.com/api/SingleMode";
     }else{
-      dataurl = "http://localhost:9000/api/twoplayers";
+      dataurl = "https://memoramabackend.herokuapp.com/api/twoplayers";
     }
       
     
