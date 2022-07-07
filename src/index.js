@@ -1,17 +1,18 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
 import './index.css';
+
 import App from './App';
+import GameSettings from './components/Settings/gameSettings';
+import { createRoot } from "react-dom/client";
 import reportWebVitals from './reportWebVitals';
+import Provider from './context/context';
+import Navbar from './components/Navbar/navbar';
+const container = document.getElementById('root');
+const root = createRoot(container);
+root.render(<Provider>
+    <Navbar />
+    <App/>
+    
+    </Provider>);
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

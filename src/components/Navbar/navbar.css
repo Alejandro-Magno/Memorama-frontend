@@ -1,0 +1,62 @@
+.navbar--container {
+
+    display: flex;
+    width: 100%;
+    height: 50px;
+    background-color: rgba(148, 248, 248, 0.459);
+    justify-content: space-between;
+    text-align: center;
+
+    align-items: center;
+}
+
+.navbar--container h3 {
+   font-size: 2vmax;
+    letter-spacing: 10px;
+    width: 20%;
+    margin-left: 20px;
+}
+
+.navbar--container div img {
+
+    width: 20px;
+
+}
+
+.scoreBoard {
+    display: flex;
+    white-space: nowrap;
+
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+    justify-content: center;
+
+}
+
+.scoreBoard button {
+    padding: 7px;
+    margin-right: 10px;
+    border: 1px solid black;
+    border-radius: 3px;
+    position: relative;
+
+
+}
+
+.scoreboard--table {
+    position: absolute;
+
+    z-index: 2;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 255, 255);
+
+}
+
+.modal{
+    height: 100vh;
+}
+.fade{
+    height: 100vh;
+}

@@ -1,0 +1,102 @@
+.panel {
+    /*Layout Size */
+    display: flex;
+    width: 100%;
+    height: 20vh;
+    /*Layout Styles*/
+    background-color: #ffffff;
+    /* padding: 10px; */
+    /* box-shadow: 0px 0px 10px #000; */
+
+    /*Layout Position*/
+
+    flex-direction: row;
+    justify-content: center;
+
+
+
+}
+.ajustes{
+    display:block;
+    gap: 20px;
+   flex-wrap: nowrap;
+}
+.ajustes input-group{
+width: 200px;
+}
+.container {
+    display: flex;
+    margin: 0px;
+    width: 100%;
+
+
+    flex-direction: row;
+
+    align-items: center;
+
+
+
+
+    gap: 20px;
+
+
+}
+
+.tematica {
+    width: 20%;
+}
+
+.options {
+
+    display: flex;
+
+}
+
+.start {
+    font-weight: 600;
+
+}
+
+.usersInput {
+
+    visibility: hidden;
+    height: 0px;
+
+    transition: all 0.5s ease-in-out;
+
+}
+
+
+
+.usersInputContainer {
+    visibility: hidden;
+    height: 30px;
+    transition: all 0.2s ease-in-out;
+}
+
+.showInput {
+    visibility: visible;
+
+    transition: all 0.5s ease;
+
+
+
+
+
+
+
+}
+
+.input-group show {
+    display: block;
+}
+
+
+.show {
+    display: block;
+    visibility: visible;
+
+    height: 100px;
+    transition: all 0.5s ease;
+
+}

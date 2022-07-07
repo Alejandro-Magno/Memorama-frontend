@@ -1,0 +1,328 @@
+.board-container {
+    background-color: whitesmoke;
+    width: 100%;
+
+    max-width: 600px;
+    margin: 0 auto;
+
+
+}
+
+.estadisticas {
+    display: flex;
+    background-color: white;
+    height: 70px;
+    padding: 30px;
+    align-items: center;
+    flex-direction: row;
+    gap: 20px;
+    font-weight: 600;
+    justify-content: space-around;
+
+
+}
+
+.estadisticas button {
+    width: 33%;
+}
+
+.board {
+    width: 100%;
+    display: block;
+    height: auto;
+    position: relative;
+
+}
+
+.cards {
+    width: 100%;
+    box-sizing: border-box;
+    margin: auto;
+    text-align: center;
+    padding: 1% .75%;
+
+}
+
+.settings {
+    background-color: rgba(255, 255, 255, 0.884);
+    text-align: center;
+    padding: 20px;
+    inset: 1px solid black;
+}
+
+
+
+.GameBtnMod {
+    text-align: center;
+
+
+}
+
+.GameBtnMode--botones {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    flex-wrap: wrap;
+    gap: 20px;
+
+}
+
+
+.GameBtnMode--botones div button {
+    outline: 1px dashed black;
+}
+
+.btn {
+    background-color: white;
+    border-radius: 3px;
+    color: black;
+    font-weight: 600;
+    min-width: 124px;
+
+
+}
+
+.WinMenu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.39);
+    z-index: 1;
+    color: white;
+}
+
+.LoadingImages {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 400px;
+
+    width: 100%;
+    height: 56vh;
+    position: relative;
+    background-color: rgba(224, 224, 224, 0.39);
+    z-index: 1;
+    color: white;
+}
+
+.WinMenu button {
+    background-color: white;
+    border-radius: 5px;
+    color: black;
+    font-weight: 600;
+    min-width: 124px;
+    height: 40px;
+    border: none;
+
+
+
+}
+
+.btn-start {
+    background-color: #0093E9;
+    border-radius: 5px;
+    color: white;
+    font-weight: 600;
+    min-width: 124px;
+    height: 40px;
+    border: none;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.restart--button {
+    padding: 5px;
+    outline: 1px solid #0093E9;
+    transition: all 1s ease;
+    cursor: pointer;
+    white-space: nowrap;
+
+}
+
+.restart--button label {
+    margin-right: 10px;
+}
+
+
+
+.GameBtnMode--botones button:hover {
+    background-color: #0093E9;
+}
+
+.GameBtnMode--botones button::selection {
+    background-color: #0093E9;
+}
+
+.gameBtn {
+    background-color: white;
+    border: none;
+    outline: none;
+    width: 120px;
+    color: black;
+    font-weight: 600;
+    padding: 7px;
+    white-space: nowrap;
+    border-radius: 3px;
+}
+
+.activeButton {
+    background-color: #0093E9;
+    color: white;
+
+}
+
+.UsersName {
+    display: flex;
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    height: 0px;
+    padding-top: 10px;
+    align-items: center;
+    justify-content: space-around;
+    visibility: hidden;
+    flex-direction: row;
+
+
+
+}
+
+.showButtons {
+    height: 50px;
+    visibility: visible;
+    transition: visibility 1s ease;
+    transition: height 0.2s ease;
+}
+
+.inputName {
+    width: 30%;
+}
+
+.saveIcon {
+    width: 30px;
+    height: 30px;
+    background-color: #0093E9;
+    border-radius: 50%;
+    color: white;
+    font-weight: 600;
+    padding: 7px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+/* Resaltado cuando esta en turno */
+.Inturno {
+    background-color: rgb(139, 180, 255);
+    border: 3px solid #000000;
+    outline: none;
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+    /* pointer-events: none; */
+
+}
+
+/* Input de comprobacion */
+.boder-danger {
+    border: 3px solid salmon;
+    outline: none;
+}
+
+.boder-danger:focus {
+
+    border: none;
+
+}
+
+/* Animaciones */
+.heartbeat {
+    -webkit-animation: heartbeat 1.5s ease-in-out infinite both;
+    animation: heartbeat 1.5s ease-in-out infinite both;
+}
+
+
+
+
+
+@-webkit-keyframes heartbeat {
+    from {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        -webkit-transform-origin: center center;
+        transform-origin: center center;
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+    }
+
+    10% {
+        -webkit-transform: scale(0.91);
+        transform: scale(0.91);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+    }
+
+    17% {
+        -webkit-transform: scale(0.98);
+        transform: scale(0.98);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+    }
+
+    33% {
+        -webkit-transform: scale(0.87);
+        transform: scale(0.87);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+    }
+
+    45% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+    }
+}
+
+@keyframes heartbeat {
+    from {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        -webkit-transform-origin: center center;
+        transform-origin: center center;
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+    }
+
+    10% {
+        -webkit-transform: scale(0.91);
+        transform: scale(0.91);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+    }
+
+    17% {
+        -webkit-transform: scale(0.98);
+        transform: scale(0.98);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+    }
+
+    33% {
+        -webkit-transform: scale(0.87);
+        transform: scale(0.87);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+    }
+
+    45% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+    }
+}
