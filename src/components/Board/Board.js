@@ -1,7 +1,7 @@
 import { useContext, useRef, useState, useEffect, Suspense } from "react";
 import MemoBlock from "../MemoBlock/MemoBlock";
 import "./Board.css";
-import GameSettings from "../Settings/gameSettings";
+
 import { gameContext } from "../../context/context";
 import fetchData from "../Settings/functions/fetchImages";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -96,13 +96,13 @@ const Board = ({ animating, handleMemoClick, memoBlocks }) => {
     if (gameWon) {
       if (gameMode === "1Player") {
         currentWinnerData.current = {
-          "Modo de juego": "1Player",
-          Dificultad: currentDificult.current,
-          Tematica: currentImageSelected.current,
+          dificultad: currentDificult.current,
+          tematica: currentImageSelected.current,
           turnos: turnos,
-          puntos: gamePoints,
+          gamemode: gameMode,
         };
-        console.log(currentWinnerData.current);
+
+        saveinDatabase(currentWinnerData.current);
       } else if (gameMode === "2Player") {
         currentWinnerData.current = {
           gamemode: gameMode,
@@ -113,7 +113,7 @@ const Board = ({ animating, handleMemoClick, memoBlocks }) => {
           tematica: currentImageSelected.current,
           winner: currentWinner.current,
         };
-        console.log(currentWinnerData.current);
+
         saveinDatabase(currentWinnerData.current);
       }
     }
@@ -154,68 +154,140 @@ const Board = ({ animating, handleMemoClick, memoBlocks }) => {
     setUser2(currentUser2.current);
   }
 
+  function SaveUrlsDatabase(urls) {
+    const SaveUrls = new Promise((resolve, reject) => {
+      const req = axios({
+        method: "post",
+        url: "http://localhost:9000/api/imagesUrl",
+        data: urls,
+      });
+
+      req.then((res) => {
+        resolve();
+
+        if (res.request.status === 204) {
+          console.log("El recurso ya se encuentra cargado");
+          reject();
+        }
+      });
+    });
+  }
+
+  function SaveUrlinSessionStorage(PhotosUrl) {
+     let onlyurls = JSON.parse(PhotosUrl);
+  
+    let saveInLocal = {
+      photosUrl: onlyurls.photosUrl,
+      tematica: currentImageSelected.current,
+      dificult: currentDificult.current,
+    };
+
+  
+
+    window.sessionStorage.setItem(
+      `Modo-${currentDificult.current}-${currentImageSelected.current}`,
+      JSON.stringify(saveInLocal)
+    );
+
+    let ToSaveDatabase = {
+      name: `Modo-${currentDificult.current}-${currentImageSelected.current}`,
+      urls: JSON.stringify(saveInLocal),
+    };
+
+    return ToSaveDatabase;
+  }
+
   async function SaveImages(query) {
-    // Si las url de las imagenes no estan en el localStorage, las solicita a la api y las guarda en el localStorage.
-    //Luego  las carga en el context, para ser mezcladas.
-    let data;
+    // Si las url de las imagenes no estan en el sessionStorage, las solicita a la api y las guarda en el sessionStorage.
 
     if (
-      window.localStorage.getItem(
+      // Le preguntamo al sessionStorage si las imagenes ya estan guardadas.
+      window.sessionStorage.getItem(
         `Modo-${currentDificult.current}-${currentImageSelected.current}`
       )
     ) {
+      // Si las imagenes ya estan guardadas, las cargamos en el context.
       let dataToken = JSON.parse(
-        window.localStorage.getItem(
+        window.sessionStorage.getItem(
           `Modo-${currentDificult.current}-${currentImageSelected.current}`
         )
       );
+     
 
       setGameImages(dataToken.photosUrl);
     } else {
-      switch (currentDificult.current) {
-        case "facil":
-          try {
-            data = await fetchData(6, currentImageSelected.current);
-          } catch (error) {
-            console.log(error);
-          }
-          break;
-        case "normal":
-          try {
-            data = await fetchData(10, currentImageSelected.current);
-          } catch (error) {
-            console.log(error);
-          }
-          break;
-        case "dificil":
-          try {
-            data = await fetchData(18, currentImageSelected.current);
-          } catch (error) {
-            console.log(error);
-          }
-          break;
-      }
+      const setDataBaseImages = new Promise((resolve, reject) => {
+        // Consultando imagenes desde la base de datos.
+        axios({
+          method: "post",
+          url: "http://localhost:9000/api/imagesUrlQuery",
+          data: {
+            query: `Modo-${currentDificult.current}-${currentImageSelected.current}`,
+          },
+        })
+          .then((res) => {
+            const photosUrlFromDB = JSON.parse(res.data[0].urls).photosUrl;
+          
+            SaveUrlinSessionStorage(res.data[0].urls);
+            setGameImages(photosUrlFromDB);
 
-      const PhotosUrlFacil = data.photos.map((photo) => photo.src.small);
+            resolve();
+          })
+          .catch(async (err) => {
+            console.log("Cargando images desde la api");
+            let data;
 
-      let saveInLocal = {
-        photosUrl: PhotosUrlFacil,
-        tematica: currentImageSelected.current,
-        dificult: currentDificult.current,
-      };
+            switch (currentDificult.current) {
+              case "facil":
+                try {
+                  data = await fetchData(6, currentImageSelected.current);
+                } catch (error) {
+                  sessionStorage.deleteItem(
+                    "Modo-${currentDificult.current}-${currentImageSelected.current}"
+                  );
+                  alert(
+                    "Error a cargar las imagenes desde la api, recargue la pagina"
+                  );
+                }
+                break;
+              case "normal":
+                try {
+                  data = await fetchData(10, currentImageSelected.current);
+                } catch (error) {
+                  sessionStorage.deleteItem(
+                    "Modo-${currentDificult.current}-${currentImageSelected.current}"
+                  );
+                  alert(
+                    "Error a cargar las imagenes desde la api, recargue la pagina"
+                  );
+                }
+                break;
+              case "dificil":
+                try {
+                  data = await fetchData(18, currentImageSelected.current);
+                } catch (error) {
+                  sessionStorage.deleteItem(
+                    "Modo-${currentDificult.current}-${currentImageSelected.current}"
+                  );
+                  alert(
+                    "Error a cargar las imagenes desde la api, recargue la pagina"
+                  );
+                }
+                break;
+            } // Aqui se hace la peticion a la api segun los datos actuales.
+            // En este punto ya data tiene las imagenes que se necesitan.
+            const PhotosUrlFacil = data.photos.map((photo) => photo.src.small); //extraemos solo las urls de  las imagenes.
 
-      window.localStorage.setItem(
-        `Modo-${currentDificult.current}-${currentImageSelected.current}`,
-        JSON.stringify(saveInLocal)
-      );
+            // Guardamos las imagenes en el sessionStorage.
+            let UrlInlocal = SaveUrlinSessionStorage(PhotosUrlFacil); //Devuelve un  objeto con el query para guardar las urls en la base de datos
+            SaveUrlsDatabase(UrlInlocal);
 
-      let dataToken = JSON.parse(
-        window.localStorage.getItem(
-          `Modo-${currentDificult.current}-${currentImageSelected.current}`
-        )
-      );
+            // Guardamos las imagenes en el context.
+            setGameImages(PhotosUrlFacil);
 
-      setGameImages(dataToken.photosUrl);
+            reject(err);
+          });
+      });
     }
   }
 
@@ -261,30 +333,31 @@ const Board = ({ animating, handleMemoClick, memoBlocks }) => {
       currentWinner.current = user2;
       return "El ganador es " + user2;
     } else {
-       currentWinner.current = 'Empate';
+      currentWinner.current = "Empate";
       return "Empate";
     }
   };
 
   const saveinDatabase = async (res) => {
-    let dataurl
+    let dataurl;
+
     if (gameMode === "1Player") {
-      dataurl = "https://memoramabackend.herokuapp.com/api/SingleMode";
-    }else{
-      dataurl = "https://memoramabackend.herokuapp.com/api/twoplayers";
+      dataurl = "https://memoramabackend.herokuapp.com/api/singlemode";
     }
-      
-    
+
+    if (gameMode === "2Player") {
+      dataurl = "https://memoramabackend.herokuapp.com/api/twoplayer";
+    }
     await axios({
       url: dataurl,
       method: "post",
       data: res,
     })
       .then((res) => {
-        console.log(res);
+        console.log('Datos guardados en la base de datos')
       })
       .catch((res) => {
-        console.log(res);
+        console.log('No se pudieron guardar los datos en la base de datos');
       });
   };
 

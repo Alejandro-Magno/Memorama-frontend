@@ -54,6 +54,10 @@
 
 }
 
+.tBody{
+ overflow: scroll;
+}
+
 .modal{
     height: 100vh;
 }

@@ -2,7 +2,7 @@ import "./App.css";
 import { useEffect, useState, useContext } from "react";
 import Board from "./components/Board/Board";
 import { gameContext } from "./context/context";
-import GameSettings from "./components/Settings/gameSettings";
+
 
 const App = () => {
   
@@ -50,9 +50,7 @@ const App = () => {
   
 
    if (gameMode === "1Player") {
-  console.log(
-    "Entramos en la comprobacion de 1 Jugador "
-  );  
+
 
  
 
@@ -75,24 +73,7 @@ const App = () => {
            setGameWon(true);
          }
 
-         //  if (gameContext.gameMode === "2Player") {
-         //    console.log("Entramos en la comprobacion de 2 jugadores ");
-         //    let gamePointsCopy = gamePoints + 1;
-         //    setGamePoints(gamePointsCopy);
-
-         //    if (user1 === userInTurn) {
-         //      console.log("Cambiando turno a user2");
-         //      let user1ScoreCopy = user1Score + 1;
-         //      setUser1Score(user1ScoreCopy);
-         //    } else {
-         //      let user2ScoreCopy = user2Score + 1;
-         //      setUser2Score(user2ScoreCopy);
-         //    }
-
-         //    if (gamePointsCopy === ImageList.length) {
-         //      setGameWon(true);
-         //    }
-         //  }
+        
        } else {
          // Si seleccionamos una carta que no es la misma que la seleccionada, se deselecciona la carta seleccionada
 
