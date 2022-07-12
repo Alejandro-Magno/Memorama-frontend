@@ -11,7 +11,7 @@
 }
 
 .navbar--container h3 {
-   font-size: 2vmax;
+    font-size: 2vmax;
     letter-spacing: 10px;
     width: 20%;
     margin-left: 20px;
@@ -54,13 +54,20 @@
 
 }
 
-.tBody{
- overflow: scroll;
+.tBody {
+    overflow: scroll;
 }
 
-.modal{
+.modal {
     height: 100vh;
 }
-.fade{
+
+.fade {
     height: 100vh;
+}
+
+.modal-body {
+    max-height: 400px;
+    overflow-y: scroll;
+   
 }
