@@ -158,7 +158,7 @@ const Board = ({ animating, handleMemoClick, memoBlocks }) => {
     const SaveUrls = new Promise((resolve, reject) => {
       const req = axios({
         method: "post",
-        url: "http://localhost:9000/api/imagesUrl",
+        url: "http://memoramabackend.herokuapp.com/imagesUrl",
         data: urls,
       });
 
@@ -220,7 +220,7 @@ const Board = ({ animating, handleMemoClick, memoBlocks }) => {
         // Consultando imagenes desde la base de datos.
         axios({
           method: "post",
-          url: "http://localhost:9000/api/imagesUrlQuery",
+          url: "http://memoramabackend.herokuapp.com/imagesUrlQuery",
           data: {
             query: `Modo-${currentDificult.current}-${currentImageSelected.current}`,
           },
