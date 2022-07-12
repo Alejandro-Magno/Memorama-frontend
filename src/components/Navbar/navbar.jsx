@@ -33,8 +33,9 @@ export default function Navbar() {
        "https://memoramabackend.herokuapp.com/api/singlemode"
      );
    
-    setData(twoplayers.data);
-    setData1Player(responseSingleMode.data);
+    setData(twoplayers.data.reverse());
+  
+    setData1Player(responseSingleMode.data.reverse());
   }
   useEffect(() => {
     request();
@@ -95,7 +96,7 @@ export default function Navbar() {
                       </tr>
                     )}
                   </thead>
-                  <tbody className="tBody">
+                  <tbody className="tBody  ">
                     {defaultScore
                       ? data.map((item, index) => {
                           return (
