@@ -177,10 +177,10 @@ const Board = ({ animating, handleMemoClick, memoBlocks }) => {
   }
 
   function SaveUrlinSessionStorage(PhotosUrl) {
-     let onlyurls = JSON.parse(PhotosUrl);
+  
   
     let saveInLocal = {
-      photosUrl: onlyurls.photosUrl,
+      photosUrl: PhotosUrl,
       tematica: currentImageSelected.current,
       dificult: currentDificult.current,
     };
@@ -231,7 +231,7 @@ const Board = ({ animating, handleMemoClick, memoBlocks }) => {
           .then((res) => {
             const photosUrlFromDB = JSON.parse(res.data[0].urls).photosUrl;
           
-            SaveUrlinSessionStorage(res.data[0].urls);
+            SaveUrlinSessionStorage(photosUrlFromDB);
             setGameImages(photosUrlFromDB);
 
             resolve();
@@ -280,13 +280,14 @@ const Board = ({ animating, handleMemoClick, memoBlocks }) => {
             } // Aqui se hace la peticion a la api segun los datos actuales.
             // En este punto ya data tiene las imagenes que se necesitan.
             const PhotosUrlFacil = data.photos.map((photo) => photo.src.small); //extraemos solo las urls de  las imagenes.
-                   let onlyurls = JSON.parse(PhotosUrl);
+     
+                
             // Guardamos las imagenes en el sessionStorage.
-            let UrlInlocal = SaveUrlinSessionStorage(PhotosUrlFacil); //Devuelve un  objeto con el query para guardar las urls en la base de datos
-            SaveUrlsDatabase(onlyurls);
+             SaveUrlinSessionStorage(PhotosUrlFacil); //Devuelve un  objeto con el query para guardar las urls en la base de datos
+             SaveUrlsDatabase(PhotosUrlFacil);
 
             // Guardamos las imagenes en el context.
-            setGameImages(onlyurls);
+            setGameImages(PhotosUrlFacil);
 
             reject(err);
           });
