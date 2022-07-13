@@ -13,24 +13,13 @@ export default function Navbar() {
   
 
 
-
-  const requstGameDatafromDB = async () => {
-    const twoplayers = await axios.get("https://memoramabackend.herokuapp.com/api/twoplayers");
-    const responseSingleMode= await axios.get("https://memoramabackend.herokuapp.com/api/singlemode");
-    
-
-    return  {
-      twoplayers: twoplayers.data,
-      singlemode: responseSingleMode.data,
-    }
-  };
-
   async function request() {
      const twoplayers = await axios.get(
-       "https://memoramabackend.herokuapp.com/api/twoplayers"
+       "https://memoramabackend.herokuapp.com/api/twoplayers",
+       { headers: { "Access-Control-Allow-Origin": "*" } }
      );
      const responseSingleMode = await axios.get(
-       "https://memoramabackend.herokuapp.com/api/singlemode"
+       "https://memoramabackend.herokuapp.com/api/singlemode",{ headers: { "Access-Control-Allow-Origin": "*" } }
      );
    
     setData(twoplayers.data.reverse());

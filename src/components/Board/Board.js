@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
+
 const Board = ({ animating, handleMemoClick, memoBlocks }) => {
   const {
     setGameMode,
@@ -161,6 +162,7 @@ const Board = ({ animating, handleMemoClick, memoBlocks }) => {
     const SaveUrls = new Promise((resolve, reject) => {
       const req = axios({
         method: "post",
+        headers: {"Access-Control-Allow-Origin": "*"},
         url: "https://memoramabackend.herokuapp.com/api/imagesUrl",
         data: urls,
       });
@@ -216,28 +218,32 @@ const Board = ({ animating, handleMemoClick, memoBlocks }) => {
         )
       );
      
-
       setGameImages(dataToken.photosUrl);
+
     } else {
+      // Consultando imagenes desde la base de datos.
       const setDataBaseImages = new Promise((resolve, reject) => {
-        // Consultando imagenes desde la base de datos.
+     
+      const queryCliente =`Modo-${currentDificult.current}-${currentImageSelected.current}`
         axios({
           method: "post",
+          headers: { "Access-Control-Allow-Origin": "*" },
           url: "https://memoramabackend.herokuapp.com/api/imagesUrlQuery",
           data: {
             query: `Modo-${currentDificult.current}-${currentImageSelected.current}`,
           },
         })
           .then((res) => {
+            
             const photosUrlFromDB = JSON.parse(res.data[0].urls).photosUrl;
-          
+
             SaveUrlinSessionStorage(photosUrlFromDB);
             setGameImages(photosUrlFromDB);
-
+             console.log('Respuesta desde la DB');
             resolve();
           })
           .catch(async (err) => {
-            console.log("Cargando images desde la api");
+            console.log("Respuesta desde la API");
             let data;
 
             switch (currentDificult.current) {
@@ -280,11 +286,10 @@ const Board = ({ animating, handleMemoClick, memoBlocks }) => {
             } // Aqui se hace la peticion a la api segun los datos actuales.
             // En este punto ya data tiene las imagenes que se necesitan.
             const PhotosUrlFacil = data.photos.map((photo) => photo.src.small); //extraemos solo las urls de  las imagenes.
-     
-                
+
             // Guardamos las imagenes en el sessionStorage.
-             SaveUrlinSessionStorage(PhotosUrlFacil); //Devuelve un  objeto con el query para guardar las urls en la base de datos
-             SaveUrlsDatabase(PhotosUrlFacil);
+            SaveUrlinSessionStorage(PhotosUrlFacil); //Devuelve un  objeto con el query para guardar las urls en la base de datos
+            SaveUrlsDatabase(PhotosUrlFacil);
 
             // Guardamos las imagenes en el context.
             setGameImages(PhotosUrlFacil);
@@ -355,6 +360,7 @@ const Board = ({ animating, handleMemoClick, memoBlocks }) => {
     }
     await axios({
       url: dataurl,
+      headers: {"Access-Control-Allow-Origin": "*"} ,
       method: "post",
       data: res,
     })
