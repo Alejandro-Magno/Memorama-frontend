@@ -104,6 +104,9 @@ const Board = ({ animating, handleMemoClick, memoBlocks }) => {
 
         saveinDatabase(currentWinnerData.current);
       } else if (gameMode === "2Player") {
+
+         
+
         currentWinnerData.current = {
           gamemode: gameMode,
           P1: user1,
@@ -277,13 +280,13 @@ const Board = ({ animating, handleMemoClick, memoBlocks }) => {
             } // Aqui se hace la peticion a la api segun los datos actuales.
             // En este punto ya data tiene las imagenes que se necesitan.
             const PhotosUrlFacil = data.photos.map((photo) => photo.src.small); //extraemos solo las urls de  las imagenes.
-
+                   let onlyurls = JSON.parse(PhotosUrl);
             // Guardamos las imagenes en el sessionStorage.
             let UrlInlocal = SaveUrlinSessionStorage(PhotosUrlFacil); //Devuelve un  objeto con el query para guardar las urls en la base de datos
-            SaveUrlsDatabase(UrlInlocal);
+            SaveUrlsDatabase(onlyurls);
 
             // Guardamos las imagenes en el context.
-            setGameImages(PhotosUrlFacil);
+            setGameImages(onlyurls);
 
             reject(err);
           });
