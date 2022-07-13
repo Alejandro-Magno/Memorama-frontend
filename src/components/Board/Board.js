@@ -346,7 +346,8 @@ const Board = ({ animating, handleMemoClick, memoBlocks }) => {
     }
 
     if (gameMode === "2Player") {
-      dataurl = "https://memoramabackend.herokuapp.com/api/twoplayer";
+      console.log(res)
+      dataurl = "https://memoramabackend.herokuapp.com/api/twoplayers";
     }
     await axios({
       url: dataurl,
